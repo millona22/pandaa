@@ -1,4 +1,3 @@
-# pandaa
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -23,6 +22,7 @@
             min-height: 100vh;
             overflow: hidden;
             user-select: none;
+            -webkit-user-select: none;
         }
 
         h1 {
@@ -30,6 +30,7 @@
             margin: 5px 0;
             text-shadow: 2px 2px #c8e6c9;
             font-size: 28px;
+            text-align: center;
         }
 
         #game-container {
@@ -41,176 +42,116 @@
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             overflow: hidden;
+            touch-action: none; /* Impedisce lo zoom da telefono */
         }
 
         #ui {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
+            top: 12px;
+            left: 12px;
+            right: 12px;
             display: flex;
             justify-content: space-between;
             font-size: 18px;
             font-weight: bold;
             color: #1b5e20;
             z-index: 10;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 5px 10px;
+            border-radius: 10px;
         }
 
-        /* Il nostro Panda fatto in CSS */
+        /* Il nostro Panda Super Carino in CSS */
         #panda {
             position: absolute;
             bottom: 20px;
             left: 170px;
             width: 60px;
             height: 60px;
-            background-color: #fff;
+            background-color: #ffffff;
             border-radius: 50%;
-            border: 3px solid #333;
-            transition: width 0.2s, height 0.2s, bottom 0.2s;
-            box-shadow: inset -5px -5px 0px #eee;
+            border: 3px solid #222;
+            box-shadow: inset -4px -4px 0px #e0e0e0;
+            z-index: 5;
         }
 
-        /* Orecchie del Panda */
+        /* Orecchie */
         #panda::before, #panda::after {
             content: '';
             position: absolute;
-            top: -5px;
-            width: 18px;
-            height: 18px;
-            background-color: #333;
+            top: -6px;
+            width: 20px;
+            height: 20px;
+            background-color: #222;
             border-radius: 50%;
         }
-        #panda::before { left: -2px; }
-        #panda::after { right: -2px; }
+        #panda::before { left: -4px; }
+        #panda::after { right: -4px; }
 
-        /* Occhi e dettagli del viso */
         .face {
             position: relative;
             width: 100%;
             height: 100%;
         }
-        .face::before, .face::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            width: 14px;
-            height: 18px;
-            background-color: #333;
-            border-radius: 50%;
-        }
-        .face::before { left: 8px; transform: rotate(-15px); }
-        .face::after { right: 8px; transform: rotate(15px); }
 
-        .eyes {
+        /* Guance Rosa Cicciotte */
+        .blush {
+            position: absolute;
+            top: 32px;
+            left: 4px;
+            width: 10px;
+            height: 7px;
+            background-color: #ff8a80;
+            border-radius: 50%;
+            box-shadow: 36px 0 0 #ff8a80;
+            z-index: 2;
+        }
+
+        /* Macchie nere occhi */
+        .eye-patches {
+            position: absolute;
+            top: 14px;
+            left: 6px;
+            width: 16px;
+            height: 20px;
+            background-color: #222;
+            border-radius: 50%;
+            transform: rotate(-15deg);
+            box-shadow: 26px -7px 0 #222; /* Secondo occhio specchiato virtualmente */
+        }
+
+        /* Pupille Bianche Luccicanti */
+        .eyes-white {
             position: absolute;
             top: 20px;
-            left: 13px;
-            width: 4px;
-            height: 4px;
+            left: 12px;
+            width: 5px;
+            height: 5px;
             background-color: #fff;
             border-radius: 50%;
             box-shadow: 26px 0 0 #fff;
+            z-index: 3;
         }
-        .blush {
+
+        /* Nasino */
+        .nose {
             position: absolute;
-            top: 30px;
-            left: 4px;
+            top: 28px;
+            left: 26px;
             width: 8px;
-            height: 6px;
-            background-color: #ff8a80;
-            border-radius: 50%;
-            box-shadow: 40px 0 0 #ff8a80;
+            height: 5px;
+            background-color: #222;
+            border-radius: 40% 40% 50% 50%;
         }
 
         /* Elementi cadenti */
         .falling-item {
             position: absolute;
-            font-size: 32px;
+            font-size: 35px;
             line-height: 1;
+            z-index: 4;
             user-select: none;
+            -webkit-user-select: none;
         }
 
-        /* Schermate */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 20;
-        }
-
-        button {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 18px;
-            font-family: var(--font-family);
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.1s;
-            margin-top: 15px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        #instructions {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Il Panda Affamato 🐼</h1>
-    
-    <div id="game-container">
-        <div id="ui">
-            <div id="score-display">Bambù: 0</div>
-            <div id="weight-display">Peso: Morbidoso</div>
-        </div>
-
-        <div id="panda">
-            <div class="face">
-                <div class="eyes"></div>
-                <div class="blush"></div>
-            </div>
-        </div>
-
-        <div id="start-screen" class="overlay">
-            <h2>Aiuta il panda a mangiare!</h2>
-            <p style="text-align:center; padding: 0 20px;">Muoviti a destra e sinistra. Mangia il bambù 🎋 ma evita la lisca di pesce 🐟!</p>
-            <button onclick="startGame()">Gioca</button>
-            <div id="instructions">Usa le Frecce (← / →), i tasti A/D o clicca sui lati dello schermo</div>
-        </div>
-
-        <div id="game-over-screen" class="overlay hidden">
-            <h2 style="color: #d32f2f; margin: 0;">Game Over! 😵</h2>
-            <p>Il panda ha mangiato una lisca di pesce!</p>
-            <p id="final-score" style="font-weight: bold; font-size: 20px;"></p>
-            <button onclick="startGame()">Riprova 🔄</button>
-        </div>
-    </div>
-
-    <script>
-        const container = document.getElementById('game-container');
-        const panda = document.getElementById('panda');
-        const scoreDisplay = document.getElementById('score-display');
-        const weightDisplay
+        /* Schermate
